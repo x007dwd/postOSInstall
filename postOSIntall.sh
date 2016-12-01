@@ -5,7 +5,7 @@ sudo apt-mark hold xserver-xorg-core
 sudo apt-get install bash-completion command-not-found
 sudo apt-file update &>/dev/null
 sudo update-command-not-found &>/dev/null
-exit
+
 
 ## install some drivers
 cd /tmp/
@@ -56,9 +56,6 @@ sudo apt-get install build-essential cmake cmake-curses-gui
 
 
 ## install some cpp package
-sudo apt-get install libopencv libopencv-dev
-sudo apt-get install libboost-all
-
 sudo apt-get install libprotobuf-dev libleveldb-dev libsnappy-dev libopencv-dev libhdf5-serial-dev protobuf-compiler
 sudo apt-get install --no-install-recommends libboost-all-dev   libatlas-base-dev
 sudo apt-get install libgflags-dev libgoogle-glog-dev liblmdb-dev
@@ -98,3 +95,40 @@ sudo cp ros-opencvtegra/image_geometryConfig.cmake /opt/ros/indigo/share/image_g
 
 
 ## config Eigen and sophus, g2o
+sudo apt-get install libeigen3-dev
+
+cd ~/Documents/
+mkdir libraries
+cd linraries
+git clone https://github.com/strasdat/Sophus.git
+cd Sophus
+mkdir build
+cd build
+cmake ..
+make
+
+cd ../../
+git clone https://github.com/RainerKuemmerle/g2o.git
+cd g2o
+sudo apt-get install libeigen3-dev libsuitesparse-dev libqt4-dev qt4-qmake libqglviewer-dev
+mkdir build
+cd build
+cmake ../
+make
+
+## config caffe
+sudo apt-get install python-pip
+cd ~/Documents/
+mkdir -p /dnn/
+cd dnn
+git clone https://github.com/BVLC/caffe.git
+cd caffe/python
+for req in $(cat requirements.txt); do sudo pip install $req; done
+cd ..
+cp Makefile.config.example Makefile.config
+# Adjust Makefile.config (for example, if using Anaconda Python, or if cuDNN is desired)
+make all
+make test
+make runtest
+make pycaffe
+echo "export PYTHONPATH=~/Documents/dnn//caffe/python:$PYTHONPATH" >> ~/.bashrc
