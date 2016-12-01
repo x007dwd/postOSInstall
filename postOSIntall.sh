@@ -83,12 +83,15 @@ cd build
 cmake ../
 make
 
+## config caffe
 sudo apt-get install python-pip
 cd ~/Documents/
 mkdir -p /dnn/
 cd dnn
 git clone https://github.com/BVLC/caffe.git
-for req in $(cat requirements.txt); do pip install $req; done
+cd caffe/python
+for req in $(cat requirements.txt); do sudo pip install $req; done
+cd ..
 cp Makefile.config.example Makefile.config
 # Adjust Makefile.config (for example, if using Anaconda Python, or if cuDNN is desired)
 make all
