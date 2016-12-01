@@ -18,7 +18,6 @@ sudo cat ipv6-hosts/hosts >> /etc/hosts
 
 ## config nautilus
 sudo apt-get install nautilus-open-terminal
-nautilus -q
 
 ## install dropbox
 cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
@@ -61,4 +60,39 @@ catkin_make
 sudo dpkg -i cuda-repo-ubuntu1404-8-0-local_8.0.44-1_amd64.deb
 sudo apt-get update
 sudo apt-get install cuda
+echo "export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}" >> ~/.bashrc
 ## config Eigen and sophus, g2o
+sudo apt-get install libeigen3-dev
+
+cd ~/Documents/
+mkdir libraries
+cd linraries
+git clone https://github.com/strasdat/Sophus.git
+cd Sophus
+mkdir build
+cd build
+cmake ..
+make
+
+cd ../../
+git clone https://github.com/RainerKuemmerle/g2o.git
+cd g2o
+sudo apt-get install libeigen3-dev libsuitesparse-dev libqt4-dev qt4-qmake libqglviewer-dev
+mkdir build
+cd build
+cmake ../
+make
+
+sudo apt-get install python-pip
+cd ~/Documents/
+mkdir -p /dnn/
+cd dnn
+git clone https://github.com/BVLC/caffe.git
+for req in $(cat requirements.txt); do pip install $req; done
+cp Makefile.config.example Makefile.config
+# Adjust Makefile.config (for example, if using Anaconda Python, or if cuDNN is desired)
+make all
+make test
+make runtest
+make pycaffe
+echo "export PYTHONPATH=~/Documents/dnn//caffe/python:$PYTHONPATH" >> ~/.bashrc
