@@ -88,7 +88,7 @@ sudo cp /opt/ros/indigo/share/cv_bridge/cmake/cv_bridgeConfig.cmake  /opt/ros/in
 sudo cp /opt/ros/indigo/share/image_geometry/cmake/image_geometryConfig.cmake /opt/ros/indigo/share/image_geometry/cmake/ image_geometryConfig.cmake-bak
 
 ## these files are in foleder of ros-opencvtegra
-sudo cp ros-opencvtegra/pkgconfig/cv_bridge.pc /opt/ros/indigo/lib/pkgconfig/cv_bridge.pc
+sudo cp ros-opencvtegra/cv_bridge.pc /opt/ros/indigo/lib/pkgconfig/cv_bridge.pc
 sudo cp ros-opencvtegra/image_geometry.pc /opt/ros/indigo/lib/pkgconfig/image_geometry.pc
 sudo cp ros-opencvtegra/cv_bridgeConfig.cmake /opt/ros/indigo/share/cv_bridge/cmake/cv_bridgeConfig.cmake
 sudo cp ros-opencvtegra/image_geometryConfig.cmake /opt/ros/indigo/share/image_geometry/cmake/image_geometryConfig.cmake
